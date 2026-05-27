@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lauren Campos | Dev Mobile & Frontend</title>
+
+    <!-- Fonts: Outfit (headings) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.6);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-green: #10b981;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --accent-glow: rgba(99, 102, 241, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: var(--card-border) transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Decorative Glowing Background Blobs */
+        .blob-1,
+        .blob-2,
+        .blob-3 {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            filter: blur(140px);
+            opacity: 0.12;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -10%;
+            left: -10%;
+            animation: float-blob-1 25s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            width: 450px;
+            height: 450px;
+            bottom: 5%;
+            right: -10%;
+            animation: float-blob-2 20s infinite alternate ease-in-out;
+        }
+
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.08;
+        }
+
+        @keyframes float-blob-1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(100px, 80px) scale(1.15);
+            }
+        }
+
+        @keyframes float-blob-2 {
+            0% {
+                transform: translate(0, 0) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-100px, -80px) scale(0.9);
+            }
+        }
+
+        /* Global Layout Container */
+        .container {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            z-index: 2;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Glassmorphic Avatar frame */
+        .avatar-container {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            padding: 3px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 30px -10px var(--accent-glow);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #090d16;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 2.5rem;
+        }
+
+        /* Online pulse badge */
+        .online-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #10b981;
+            border: 3px solid #030712;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #ffffff 40%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Bio */
+        .bio-lead {
+            max-width: 620px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Links socials */
+        .links {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .links a.link-github:hover {
+            color: #ffffff;
+            border-color: var(--accent-indigo);
+            background: var(--accent-glow);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px -10px rgba(99, 102, 241, 0.4);
+        }
+
+        .links a.link-linkedin:hover {
+            color: #ffffff;
+            border-color: #0077b5;
+            background: rgba(0, 119, 181, 0.15);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px -10px rgba(0, 119, 181, 0.4);
+        }
+
+        .links a.link-whatsapp:hover {
+            color: #ffffff;
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.15);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px -10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Dynamic Stats Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 650px;
+            margin: 1rem auto 3.5rem auto;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 1rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                max-width: 320px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Tech Stack Section */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f3f4f6;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        h2::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--card-border) 0%, transparent 100%);
+            margin-left: 0.5rem;
+        }
+
+        /* Tag lists */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .tag {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: #e5e7eb;
+            padding: 0.5rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.25s ease;
+        }
+
+        .tag:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section & Filters */
+        .projects-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.6rem;
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid var(--card-border);
+            padding: 0.3rem;
+            border-radius: 9999px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            color: #ffffff;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-indigo);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Projects Grid Layout */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Project Cards */
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 0 30px var(--accent-glow);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Hidden projects layout state */
+        .project-card.hidden {
+            display: none;
+        }
+
+        .proj-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .proj-category {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-indigo);
+        }
+
+        .proj-github {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .proj-github:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .proj-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .proj-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .proj-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .proj-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #d1d5db;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.7rem;
+            border-radius: 9999px;
+        }
+
+        .proj-action {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            transition: color 0.2s ease;
+        }
+
+        .project-card:hover .proj-action {
+            color: var(--accent-indigo);
+        }
+
+        .proj-action i {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        .project-card:hover .proj-action i {
+            transform: translateX(4px);
+        }
+
+        /* Modal Details Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #0d1222;
+            border: 1px solid var(--card-border);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(99, 102, 241, 0.1);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-meta {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-indigo);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.8rem;
+        }
+
+        .modal-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #e5e7eb;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .features-list li i {
+            color: #10b981;
+            margin-top: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.5rem;
+        }
+
+        .modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-secondary {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-btn-primary {
+            background: var(--accent-indigo);
+            border: none;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Footer styling */
+        footer {
+            border-top: 1px solid var(--card-border);
+            width: 100%;
+            padding: 2.5rem 1.5rem;
+            margin-top: auto;
+            text-align: center;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2;
+            position: relative;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        /* Toast popups for interative responses */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid var(--accent-indigo);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            color: #ffffff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 2000;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Space Background Glow Blobs -->
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    <div class="blob-3"></div>
+
+    <div class="container">
+
+        <!-- Profile Header -->
+        <header>
+            <div class="avatar-container">
+                <div class="avatar-inner">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="online-badge"></div>
+            </div>
+
+            <h1>Lauren Campos</h1>
+            <p class="sub">Dev Mobile & Frontend</p>
+
+            <p class="bio-lead">
+                Desenvolvedora focada em criar interfaces fluidas, modernas e acessíveis. Experiência prática na
+                construção de soluções robustas para ecossistemas mobile e web frontend.
+            </p>
+
+            <div class="links">
+                <a href="https://github.com/LaurenGCampos" target="_blank" title="GitHub" class="link-github"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/lauren-gabriel-8b2610309/?skipRedirect=true" target="_blank"
+                    title="LinkedIn" class="link-linkedin"><i class="fab fa-linkedin"></i></a>
+                <a href="https://wa.me/5515997382031" target="_blank" title="WhatsApp" class="link-whatsapp"><i
+                        class="fab fa-whatsapp"></i></a>
+            </div>
+        </header>
+
+        <!-- Stats Grid Row -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val">2+</div>
+                <div class="stat-label">Anos de Código</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">8</div>
+                <div class="stat-label">Projetos Repos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">Multi</div>
+                <div class="stat-label">Mobile & Web</div>
+            </div>
+        </div>
+
+        <!-- Tech Stack Section -->
+        <section>
+            <h2><i class="fa-regular fa-star" style="color: var(--accent-indigo);"></i> Minha Stack</h2>
+            <div class="tags">
+                <span class="tag"><i class="fab fa-react" style="color: #61dafb;"></i> React Native</span>
+                <span class="tag"><i class="fas fa-cubes" style="color: #f97316;"></i> Expo</span>
+                <span class="tag"><i class="fas fa-feather-alt" style="color: #02569B;"></i> Flutter</span>
+                <span class="tag"><i class="fas fa-terminal" style="color: #00B4AB;"></i> Dart</span>
+                <span class="tag"><i class="fab fa-react" style="color: #61dafb;"></i> React.js</span>
+                <span class="tag"><i class="fab fa-angular" style="color: #dd0031;"></i> Angular</span>
+                <span class="tag"><i class="fab fa-vuejs" style="color: #42b883;"></i> Vue.js</span>
+                <span class="tag"><i class="fab fa-php" style="color: #777bb4;"></i> PHP</span>
+                <span class="tag"><i class="fab fa-js" style="color: #f7df1e;"></i> Vanilla JS</span>
+                <span class="tag"><i class="fab fa-git-alt" style="color: #F05032;"></i> Git</span>
+            </div>
+        </section>
+
+        <!-- Projects Grid Section -->
+        <section>
+            <div class="projects-controls">
+                <h2><i class="fa-regular fa-folder-open" style="color: var(--accent-indigo);"></i> Portfólio de Projetos
+                </h2>
+
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterProjects('all', this)">Todos</button>
+                    <button class="filter-btn" onclick="filterProjects('mobile', this)">Mobile</button>
+                    <button class="filter-btn" onclick="filterProjects('web', this)">Web Frontend & Full Stack</button>
+                </div>
+            </div>
+
+            <div class="projects-grid">
+
+                <!-- Project 1: Amigo Autista -->
+                <div class="project-card" data-tech="web" onclick="openDetails('amigo-autista')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">React & TypeScript</span>
+                            <a href="https://github.com/LaurenGCampos/amigo-autista.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Amigo Autista 🧩</h3>
+                        <p class="proj-desc">Projeto web de alto impacto social construído em React com Shadcn UI e
+                            Supabase para auxiliar no desenvolvimento cognitivo de crianças autistas.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">React.js</span>
+                            <span class="proj-tag">TypeScript</span>
+                            <span class="proj-tag">Supabase</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 2: ToDo-List Inteligente -->
+                <div class="project-card" data-tech="web" onclick="openDetails('todo-list')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">Vanilla HTML, CSS & JS</span>
+                            <a href="https://github.com/LaurenGCampos/ToDo-List-Inteligente.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">ToDo-List Inteligente ⚡</h3>
+                        <p class="proj-desc">Organizador inteligente de tarefas diárias offline desenvolvido com HTML5
+                            puro, CSS3 modular e JavaScript vanilla.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">HTML5 / CSS3</span>
+                            <span class="proj-tag">Vanilla JS</span>
+                            <span class="proj-tag">LocalStorage</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Cadastro Cliente -->
+                <div class="project-card" data-tech="web" onclick="openDetails('cadastro-cliente')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">PHP, HTML & CSS</span>
+                            <a href="https://github.com/LaurenGCampos/cadastrocliente.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Cadastro Cliente 📊</h3>
+                        <p class="proj-desc">Sistema de gerenciamento completo (CRUD) de clientes e ordens de serviços
+                            desenvolvido em PHP estrutural.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">PHP</span>
+                            <span class="proj-tag">HTML5 / CSS3</span>
+                            <span class="proj-tag">Full Stack</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 4: Bico Flutter -->
+                <div class="project-card" data-tech="mobile" onclick="openDetails('bico-flutter')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">Flutter & Dart</span>
+                            <a href="https://github.com/tav0dev/bico-flutter.git" target="_blank" class="proj-github"
+                                onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Bico App Flutter 🚀</h3>
+                        <p class="proj-desc">Aplicativo mobile multiplataforma focado na conexão dinâmica e direta de
+                            prestadores de serviços locais e clientes.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">Flutter</span>
+                            <span class="proj-tag">Dart</span>
+                            <span class="proj-tag">Clean Arch</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 5: Fish Academy -->
+                <div class="project-card" data-tech="mobile" onclick="openDetails('fish-academy')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">Flutter & Dart</span>
+                            <a href="https://github.com/tav0dev/fish-academy.git" target="_blank" class="proj-github"
+                                onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Fish Academy 🐟</h3>
+                        <p class="proj-desc">Aplicativo educacional gamificado com temática marítima desenvolvido em
+                            Flutter para incentivar a ecologia marinha.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">Flutter</span>
+                            <span class="proj-tag">Dart</span>
+                            <span class="proj-tag">Gamificação</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 6: Meu Projeto React -->
+                <div class="project-card" data-tech="web" onclick="openDetails('react-web')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">React & CSS Moderno</span>
+                            <a href="https://github.com/LaurenGCampos/meu-projeto-react.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Meu Projeto React ⚛️</h3>
+                        <p class="proj-desc">Aplicação web moderna desenvolvida para demonstrar conceitos avançados de
+                            hooks do React e consumo dinâmico de APIs.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">React.js</span>
+                            <span class="proj-tag">Context API</span>
+                            <span class="proj-tag">SPA</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 7: Meu Projeto Angular -->
+                <div class="project-card" data-tech="web" onclick="openDetails('angular-web')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">Angular & TypeScript</span>
+                            <a href="https://github.com/LaurenGCampos/meu-projeto-angular.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Meu Projeto Angular 🅰️</h3>
+                        <p class="proj-desc">Painel corporativo web focado na arquitetura modular rigorosa, injeção de
+                            dependências e reatividade.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">Angular</span>
+                            <span class="proj-tag">RxJS</span>
+                            <span class="proj-tag">TypeScript</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Project 8: Meu Projeto Vue -->
+                <div class="project-card" data-tech="web" onclick="openDetails('vue-web')">
+                    <div>
+                        <div class="proj-meta">
+                            <span class="proj-category">Vue.js & Vite</span>
+                            <a href="https://github.com/LaurenGCampos/meu-projeto-vue.git" target="_blank"
+                                class="proj-github" onclick="event.stopPropagation();"><i class="fab fa-github"></i></a>
+                        </div>
+                        <h3 class="proj-title">Meu Projeto Vue 🟢</h3>
+                        <p class="proj-desc">Interface reativa de alto desempenho que integra Vue 3 Composition API com
+                            gerenciamento de estado global centralizado.</p>
+                    </div>
+                    <div>
+                        <div class="proj-tags">
+                            <span class="proj-tag">Vue 3</span>
+                            <span class="proj-tag">Pinia</span>
+                            <span class="proj-tag">Vite</span>
+                        </div>
+                        <span class="proj-action">Ver detalhes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Dynamic Modal Details Container -->
+    <div class="modal-overlay" id="details-modal" onclick="closeModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-meta" id="modal-project-tech">React Native</div>
+            <h3 class="modal-title" id="modal-project-title">Bico App 🚀</h3>
+            <p class="modal-desc" id="modal-project-desc">Descrição longa do projeto</p>
+
+            <div class="modal-section-title"><i class="fas fa-list-check" style="color: var(--accent-indigo);"></i>
+                Principais Recursos</div>
+            <ul class="features-list" id="modal-project-features">
+                <!-- Features dynamically inserted -->
+            </ul>
+
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Fechar</button>
+                <a href="#" id="modal-project-github-btn" target="_blank" class="modal-btn modal-btn-primary"><i
+                        class="fab fa-github"></i> Ver no GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Footer -->
+    <footer>
+        <p>© 2026 Lauren Campos. Criado via terminal. 💻 <span style="color: var(--card-border);">|</span> Foco Mobile &
+            Web 📱💻</p>
+    </footer>
+
+    <!-- Interactive Copy-to-Clipboard Alert -->
+    <div class="toast" id="toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-text">E-mail copiado!</span>
+    </div>
+
+    <script>
+        // Projects details database
+        const projectsDatabase = {
+            'amigo-autista': {
+                title: 'Amigo Autista 🧩',
+                tech: 'React, TypeScript & Supabase',
+                desc: 'O Amigo Autista é uma aplicação web completa de impacto social focada no desenvolvimento cognitivo de crianças no espectro autista. O projeto foi construído em React com TypeScript, utilizando componentes acessíveis e elegantes do Shadcn UI, juntamente com o ecossistema do Supabase para banco de dados relacional e autenticação.',
+                features: [
+                    '📅 Agendas visuais lúdicas e interativas para ajudar no estabelecimento de rotinas saudáveis.',
+                    '🗣️ Prancha de comunicação alternativa por figuras customizáveis (PECS).',
+                    '☁️ Integração em tempo real com o Supabase para armazenamento de dados e perfis seguros.',
+                    '🎨 Paleta de cores cuidadosamente pensada para evitar hipersensibilidade sensorial.'
+                ],
+                github: 'https://github.com/LaurenGCampos/amigo-autista.git'
+            },
+            'todo-list': {
+                title: 'ToDo-List Inteligente ⚡',
+                tech: 'Vanilla HTML5, CSS3 & JavaScript',
+                desc: 'Um organizador de tarefas inteligente desenvolvido puramente com tecnologias nativas da web. Sem frameworks adicionais, ele apresenta manipulação direta do DOM, CSS customizado com variáveis dinâmicas e persistência local, provando domínio sólido nas bases do desenvolvimento Web.',
+                features: [
+                    '📂 Lembretes e controle de tarefas sem depender de servidores (execução 100% cliente).',
+                    '💾 Persistência de dados offline robusta e instantânea utilizando LocalStorage do navegador.',
+                    '🎨 Estilização responsiva impecável com CSS dinâmico e suporte a temas.',
+                    '⚡ Manipulação nativa e assíncrona do DOM garantindo performance superior.'
+                ],
+                github: 'https://github.com/LaurenGCampos/ToDo-List-Inteligente.git'
+            },
+            'cadastro-cliente': {
+                title: 'Cadastro Cliente 📊',
+                tech: 'PHP, HTML5, CSS3 & MySQL',
+                desc: 'Um painel web completo e estruturado em PHP para controle administrativo. Projetado para funcionar como um ERP simplificado para autônomos, o sistema realiza todas as operações básicas de banco de dados (CRUD) de clientes, serviços e finanças em uma interface responsiva.',
+                features: [
+                    '📂 CRUD completo (Criar, Ler, Atualizar, Excluir) estruturado de forma segura em PHP.',
+                    '📝 Cadastro com validação de dados de clientes, contratos e ordens de serviços.',
+                    '📅 Cronograma interno integrado para controle de prazos de entregas.',
+                    '💵 Balanço de faturamento financeiro local simplificado com status de pagamentos.'
+                ],
+                github: 'https://github.com/LaurenGCampos/cadastrocliente.git'
+            },
+            'bico-flutter': {
+                title: 'Bico App Flutter 🚀',
+                tech: 'Flutter & Dart',
+                desc: 'Uma reescrita completa e multiplataforma do aplicativo focado na conexão dinâmica e direta de prestadores de serviços locais (bicos) e clientes na mesma região. Oferece alto desempenho e fluidez de navegação com o motor do Flutter.',
+                features: [
+                    '📍 Geolocalização em tempo real de provedores qualificados próximos.',
+                    '💬 Chat interno dinâmico para negociações, orçamentos e prazos.',
+                    '⭐ Sistema de avaliações recíprocas pós-serviço.',
+                    '⚡ Código modularizado baseado em Clean Architecture e gerenciamento de estado.'
+                ],
+                github: 'https://github.com/tav0dev/bico-flutter.git'
+            },
+            'fish-academy': {
+                title: 'Fish Academy 🐟',
+                tech: 'Flutter & Dart',
+                desc: 'Um aplicativo educacional gamificado com temática marítima e ecológica. Desenvolvido em Flutter e Dart para prender a atenção de jovens estudantes, instruindo-os sobre cuidados ecológicos e biologia marinha de forma extremamente interativa e divertida.',
+                features: [
+                    '🎮 Interface gamificada rica em micro-interações e transições de tela dinâmicas.',
+                    '📚 Módulos e quizzes dinâmicos sobre a fauna marinha e cuidados ecológicos.',
+                    '🏆 Sistema de recompensas, conquistas e ranking de medalhas no app.',
+                    '🎨 Design visual refinado, com cores vibrantes e animações divertidas.'
+                ],
+                github: 'https://github.com/tav0dev/fish-academy.git'
+            },
+            'react-web': {
+                title: 'Meu Projeto React ⚛️',
+                tech: 'React.js & CSS Moderno',
+                desc: 'Esta aplicação web moderna foi desenvolvida para consolidar conceitos de ponta de desenvolvimento web com React, explorando a criação de Single Page Applications extremamente rápidas e bem componentizadas.',
+                features: [
+                    '🎛️ Gerenciamento de estado global flexível usando Context API.',
+                    '🔌 Consumo assíncrono de APIs externas com tratamento de erros.',
+                    '🧭 Roteamento otimizado de páginas dinâmicas através do React Router.',
+                    '🎨 Design modular com estilização responsiva e efeitos visuais modernos.'
+                ],
+                github: 'https://github.com/LaurenGCampos/meu-projeto-react.git'
+            },
+            'angular-web': {
+                title: 'Meu Projeto Angular 🅰️',
+                tech: 'Angular & TypeScript',
+                desc: 'Painel administrativo avançado estruturado de forma escalável e performática. Demonstra amplo conhecimento nas diretivas do ecossistema Angular, injeção de serviços compartilhados e reatividade assíncrona.',
+                features: [
+                    '🛡️ Arquitetura modular robusta equipada com Lazy Loading.',
+                    '🔁 Programação assíncrona altamente performática alimentada por RxJS.',
+                    '🧪 Formulários reativos com validações customizadas em tempo real.',
+                    '💉 Injeção de dependências nativa para gerenciamento limpo de serviços de dados.'
+                ],
+                github: 'https://github.com/LaurenGCampos/meu-projeto-angular.git'
+            },
+            'vue-web': {
+                title: 'Meu Projeto Vue 🟢',
+                tech: 'Vue 3 & Pinia',
+                desc: 'Um projeto web corporativo focado em performance absoluta. Utiliza a Composition API do Vue 3 para criar componentes reativos elegantes integrados a um ecossistema leve de compartilhamento de estados globais.',
+                features: [
+                    '⚡ Reatividade aprimorada com a Composition API (Vue 3).',
+                    '📦 Armazenamento de estado centralizado, leve e transparente com Pinia.',
+                    '🛠️ Sistema de compilação rápida de arquivos em ambiente local usando Vite.',
+                    '💅 Interface minimalista de alta qualidade com transições fluidas de elementos.'
+                ],
+                github: 'https://github.com/LaurenGCampos/meu-projeto-vue.git'
+            }
+        };
+
+        // Filter projects functionality
+        function filterProjects(category, button) {
+            // Update active button styling
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+
+            // Filter project cards in grid
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.95)';
+
+                setTimeout(() => {
+                    if (category === 'all' || card.getAttribute('data-tech') === category) {
+                        card.classList.remove('hidden');
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }, 200);
+            });
+        }
+
+        // Open details modal
+        function openDetails(projectId) {
+            const project = projectsDatabase[projectId];
+            if (!project) return;
+
+            document.getElementById('modal-project-title').textContent = project.title;
+            document.getElementById('modal-project-tech').textContent = project.tech;
+            document.getElementById('modal-project-desc').textContent = project.desc;
+
+            // Build features list
+            const featuresContainer = document.getElementById('modal-project-features');
+            featuresContainer.innerHTML = '';
+            project.features.forEach(feat => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i> <span>${feat}</span>`;
+                featuresContainer.appendChild(li);
+            });
+
+            // Update GitHub button href
+            const githubBtn = document.getElementById('modal-project-github-btn');
+            githubBtn.href = project.github;
+
+            // Show modal
+            document.getElementById('details-modal').classList.add('show');
+        }
+
+        // Close details modal
+        function closeModal() {
+            document.getElementById('details-modal').classList.remove('show');
+        }
+
+        // Copy email alert
+        function copyEmail(event) {
+            event.preventDefault();
+            const email = "lauren.campos@example.com";
+            navigator.clipboard.writeText(email).then(() => {
+                showToast("E-mail copiado com sucesso! 📧");
+            }).catch(() => {
+                showToast("E-mail para cópia: " + email);
+            });
+        }
+
+        // Dynamic Custom Toast Notification
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = text;
+
+            toast.classList.add('show');
+
+            if (window.toastTimeout) {
+                clearTimeout(window.toastTimeout);
+            }
+
+            window.toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
